@@ -1,0 +1,23 @@
+{
+  "name": "node_express_tutorial",
+  "version": "1.0.0",
+  "description": "node express tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel server.js --out-dir build",
+    "dev-start": "babel-watch server.js"
+  },
+  "author": "Olawale Aladeusi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "moment": "^2.22.2",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-watch": "^2.0.7"
+  }
+}
