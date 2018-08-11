@@ -10,7 +10,7 @@ const Reflection = {
    * @returns {object} reflection object 
    */
   async create(req, res) {
-    const text = `INSERT INTO
+    const createQuery = `INSERT INTO
       reflections(id, success, low_point, take_away, created_date, modified_date)
       VALUES($1, $2, $3, $4, $5, $6)
       returning *`;
@@ -24,7 +24,7 @@ const Reflection = {
     ];
 
     try {
-      const { rows } = await db.query(text, values);
+      const { rows } = await db.query(createQuery, values);
       return res.status(201).send(rows[0]);
     } catch(error) {
       return res.status(400).send(error);
@@ -36,7 +36,7 @@ const Reflection = {
    * @param {object} res 
    * @returns {object} reflections array
    */
-  async getAll(req, res) {
+  async r(req, res) {
     const findAllQuery = 'SELECT * FROM reflections';
     try {
       const { rows, rowCount } = await db.query(findAllQuery);

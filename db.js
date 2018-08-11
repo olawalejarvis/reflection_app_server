@@ -1,3 +1,4 @@
+// db.js
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
 
@@ -7,20 +8,21 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 });
 
-pool.connect();
-
 pool.on('connect', () => {
   console.log('connected to the db');
 });
 
+/**
+ * Create Tables
+ */
 const createTables = () => {
   const queryText =
     `CREATE TABLE IF NOT EXISTS
       reflections(
         id UUID PRIMARY KEY,
-        success VARCHAR(128) NOT NULL,
-        low_point VARCHAR(128) NOT NULL,
-        take_away VARCHAR(128) NOT NULL,
+        success TEXT NOT NULL,
+        low_point TEXT NOT NULL,
+        take_away TEXT NOT NULL,
         created_date TIMESTAMP,
         modified_date TIMESTAMP
       )`;
@@ -36,8 +38,11 @@ const createTables = () => {
     });
 }
 
+/**
+ * Drop Tables
+ */
 const dropTables = () => {
-  const queryText = 'DROP TABLE IF EXISTS reflections';
+  const queryText = 'DROP TABLE IF EXISTS reflections returning *';
   pool.query(queryText)
     .then((res) => {
       console.log(res);
