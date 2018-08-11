@@ -36,7 +36,7 @@ const Reflection = {
    * @param {object} res 
    * @returns {object} reflections array
    */
-  async r(req, res) {
+  async getAll(req, res) {
     const findAllQuery = 'SELECT * FROM reflections';
     try {
       const { rows, rowCount } = await db.query(findAllQuery);
