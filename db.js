@@ -13,9 +13,9 @@ pool.on('connect', () => {
 });
 
 /**
- * Create Tables
+ * Create Reflection Table
  */
-const createTables = () => {
+const createReflectionTable = () => {
   const queryText =
     `CREATE TABLE IF NOT EXISTS
       reflections(
@@ -23,6 +23,33 @@ const createTables = () => {
         success TEXT NOT NULL,
         low_point TEXT NOT NULL,
         take_away TEXT NOT NULL,
+        owner_id UUID NOT NULL,
+        created_date TIMESTAMP,
+        modified_date TIMESTAMP,
+        FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
+      )`;
+
+  pool.query(queryText)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+}
+
+/**
+ * Create User Table
+ */
+const createUserTable = () => {
+  const queryText =
+    `CREATE TABLE IF NOT EXISTS
+      users(
+        id UUID PRIMARY KEY,
+        email VARCHAR(128) UNIQUE NOT NULL,
+        password VARCHAR(128) NOT NULL,
         created_date TIMESTAMP,
         modified_date TIMESTAMP
       )`;
@@ -60,7 +87,8 @@ pool.on('remove', () => {
 });
 
 module.exports = {
-  createTables,
+  createReflectionTable,
+  createUserTable,
   dropTables
 };
 

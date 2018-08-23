@@ -11,8 +11,10 @@
   "author": "Olawale Aladeusi",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
     "moment": "^2.22.2",
     "pg": "^7.4.3",
     "uuid": "^3.3.2"
