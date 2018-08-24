@@ -66,9 +66,9 @@ const createUserTable = () => {
 }
 
 /**
- * Drop Tables
+ * Drop Reflection Table
  */
-const dropTables = () => {
+const dropReflectionTable = () => {
   const queryText = 'DROP TABLE IF EXISTS reflections returning *';
   pool.query(queryText)
     .then((res) => {
@@ -80,16 +80,49 @@ const dropTables = () => {
       pool.end();
     });
 }
+/**
+ * Drop User Table
+ */
+const dropUserTable = () => {
+  const queryText = 'DROP TABLE IF EXISTS users returning *';
+  pool.query(queryText)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+}
+/**
+ * Create All Tables
+ */
+const createAllTables = () => {
+  createUserTable();
+  createReflectionTable();
+}
+/**
+ * Drop All Tables
+ */
+const dropAllTables = () => {
+  dropUserTable();
+  dropReflectionTable();
+}
 
 pool.on('remove', () => {
   console.log('client removed');
   process.exit(0);
 });
 
+
 module.exports = {
   createReflectionTable,
   createUserTable,
-  dropTables
+  createAllTables,
+  dropUserTable,
+  dropReflectionTable,
+  dropAllTables
 };
 
 require('make-runnable');
